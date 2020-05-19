@@ -1,0 +1,30 @@
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRole
+metadata:
+  name: chiaras-website-ClusterRole
+  labels:
+    app: chiaras-website
+rules:
+  - apiGroups:
+      - extensions
+    resources:
+      - podsecuritypolicies
+    verbs:
+      - use
+    resourceNames:
+      - chiaras-website-psp
+---
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRoleBinding
+metadata:
+  name: chiaras-website-ClusterRoleBinding
+  labels:
+    app: chiaras-website
+subjects:
+  - kind: ServiceAccount
+    name: chiaras-website-service-account
+    namespace: default
+roleRef:
+  kind: ClusterRole
+  name: chiaras-website-ClusterRole
+  apiGroup: rbac.authorization.k8s.io

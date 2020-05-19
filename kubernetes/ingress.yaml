@@ -1,0 +1,15 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: chiaras-website-ingress
+  labels:
+    app: chiaras-website
+spec:
+  rules:
+  - host: chiaras-website.i07ip.k8s.gollum.westeurope.azure.gigantic.io
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: chiaras-website-service
+          servicePort: 80

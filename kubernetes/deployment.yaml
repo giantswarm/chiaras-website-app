@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: chiaras-website-deployment
+  labels:
+    app: chiaras-website
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: chiaras-website
+  template:
+    metadata:
+      labels:
+        app: chiaras-website
+    spec:
+      serviceAccountName: chiaras-website-service-account
+      securityContext:
+        runAsUser: 101
+        runAsGroup: 101
+      containers:
+      - name: nginx
+        image: chiaracokieng/chiaras-website:fixed-6
+        ports:
+        - containerPort: 8000

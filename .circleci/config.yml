@@ -8,7 +8,7 @@ jobs:
     machine: true
     steps:
       - checkout
-      - run: docker build . -t quay.io/giantswarm/chiaras-website
+      - run: docker build . -t quay.io/giantswarm/chiaras-website-app
 
 
 workflows:
@@ -25,7 +25,7 @@ workflows:
       - architect/push-to-docker:
           context: "architect"
           name: push-to-quay
-          image: "quay.io/giantswarm/chiaras-website"
+          image: "quay.io/giantswarm/chiaras-website-app"
           username_envar: "QUAY_USERNAME"
           password_envar: "QUAY_PASSWORD"
           requires:

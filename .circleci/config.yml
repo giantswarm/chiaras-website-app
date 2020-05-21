@@ -1,0 +1,45 @@
+version: 2.1
+orbs:
+  architect: giantswarm/architect@0.8.15
+
+workflows:
+  build:
+    jobs:
+      - build:
+        filters:
+          tags:
+            only: /^v[0-9]+\.[0-9]+\.[0-9]+$/
+          branches:
+            only: /.*/
+
+      - architect/push-to-docker:
+        name: push-to-quay
+        image: "quay.io/giantswarm/chiaras-website"
+        username_envar: "QUAY_USERNAME"
+        password_envar: "QUAY_PASSWORD"
+        requires:
+          - build
+        filters:
+          tags:
+            only: /^v.*/
+
+      - architect/push-to-app-catalog:
+          context: "architect"
+          name: "package and push chart to app catalog"
+          app_catalog: "chiara-catalog"
+          app_catalog_test: "chiara-test-catalog"
+          chart: "chiaras-website-app"
+          # Trigger job on git tag.
+          filters:
+            tags:
+              only: /^v.*/
+
+jobs:
+  build:
+    machine: true
+    steps:
+      - checkout
+      - run:
+        name: Build docker container
+        command: |
+        docker build . -t quay.io/giantswarm/chiaras-website

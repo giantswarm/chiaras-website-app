@@ -1,0 +1,11 @@
+color: red
+
+image:
+  registry: 'quay.io'
+  name: 'giantswarm/chiaras-website-app'
+  tag: '[[ .Version ]]'
+
+resource:
+  default:
+    name: '{{ .Release.Name  }}'
+    namespace: 'giantswarm'

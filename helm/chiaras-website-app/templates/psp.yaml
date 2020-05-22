@@ -1,7 +1,7 @@
 apiVersion: policy/v1beta1
 kind: PodSecurityPolicy
 metadata:
-  name: {{ .Values.resource.default.name }}-psp
+  name: {{ tpl .Values.resource.default.name . }}-psp
 spec:
   privileged: false
   fsGroup:

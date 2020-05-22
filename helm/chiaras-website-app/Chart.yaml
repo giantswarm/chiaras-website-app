@@ -1,3 +1,6 @@
 apiVersion: v1
-name: happa
+name: chiaras-website-app
 version: "[[.Version]]"
+appVersion: 0.1.0
+home: https://github.com/giantswarm/chiaras-website-app
+description: A chart that deploys Chiara's Website

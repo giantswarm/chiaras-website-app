@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.resource.default.name }}
-  namespace: {{ .Values.resource.default.namespace }}
+  name: {{ tpl .Values.resource.default.name . }}
+  namespace: {{ tpl .Values.resource.default.namespace . }}
   labels:
-    app: {{ .Values.resource.default.name }}
+    app: {{ tpl .Values.resource.default.name . }}
 spec:
   replicas: 5
   selector:
     matchLabels:
-      app: {{ .Values.resource.default.name }}
+      app: {{ tpl .Values.resource.default.name . }}
   template:
     metadata:
       labels:
-        app: {{ .Values.resource.default.name }}
+        app: {{ tpl .Values.resource.default.name . }}
     spec:
-      serviceAccountName: {{ .Values.resource.default.name }}-service-account
+      serviceAccountName: {{ tpl .Values.resource.default.name . }}-service-account
       securityContext:
         runAsUser: 101
         runAsGroup: 101
